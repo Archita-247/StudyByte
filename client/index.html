@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyByte</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="appHeader">
+
+  <!-- LEFT: MODE -->
+  <div class="headerLeft">
+    <select id="modeSelect" onchange="changeMode()">
+      <option value="system">System</option>
+      <option value="light">Light Mode</option>
+      <option value="dark">Dark Mode</option>
+    </select>
+  </div>
+
+  <!-- CENTER: LOGO -->
+  <div class="headerCenter">
+    <img src="../assets/logo.jpg" class="logo" />
+    <h1>StudyByte</h1>
+  </div>
+
+  <!-- RIGHT: CLOCK -->
+  <div class="headerRight">
+    <span id="clock"></span>
+  </div>
+
+</div>
+
+<!-- AUTH -->
+<div id="authBox">
+  <h2>Login / Signup</h2>
+
+  <input type="text" id="phone" placeholder="+91XXXXXXXXXX" />
+
+  <div id="recaptcha-container" style="display:none;"></div>
+
+  <button onclick="sendOTP()">Send OTP</button>
+
+  <br><br>
+
+  <input type="text" id="otp" placeholder="Enter OTP" />
+  <button onclick="verifyOTP()">Verify OTP</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" style="display:none;">
+
+  <div class="mainLayout">
+<!-- PROFILE -->
+<div class="card headerCard">
+  <img id="profileImage" class="profileImg" src="" />
+
+  <h2 id="welcomeText">Welcome 👋</h2>
+  <p id="userInfo"></p>
+
+  <button onclick="toggleProfileEdit()">Edit Profile</button>
+
+  <!-- EDIT BOX -->
+  <div id="profileEditBox" style="display:none;">
+    <input type="text" id="nameInput" placeholder="Enter your name" />
+
+    <input type="file" id="photoInput" accept="image/*" />
+
+    <!-- PREVIEW -->
+    <img id="previewImage"
+         style="width:70px; border-radius:50%; display:none; margin-top:10px;" />
+
+    <button onclick="saveProfile()">Save</button>
+    <button onclick="toggleProfileEdit()">Cancel</button>
+  </div>
+
+  <button onclick="logout()" style="margin-top:15px;">Logout</button>
+</div>
+
+    <!-- RIGHT SECTION -->
+    <div class="rightSection">
+
+      <!-- STATS -->
+      <div class="statsSection">
+
+        <div class="statCard">
+          <h4>Today</h4>
+          <p id="todayTime">0h 0m</p>
+        </div>
+
+        <div class="statCard">
+          <div class="statTop">
+            <h4>Performance</h4>
+            <select id="rangeSelect" onchange="changeRange()">
+              <option value="week">Weekly</option>
+              <option value="month">Monthly</option>
+              <option value="year">Yearly</option>
+            </select>
+          </div>
+          <p id="rangeTime">0h 0m</p>
+        </div>
+
+        <div class="statCard">
+          <h4>Streak</h4>
+          <p id="streak">🔥 0 days</p>
+        </div>
+
+      </div>
+
+      <!-- TIMER + DND -->
+      <div class="card">
+        <div class="timerGrid">
+
+          <!-- TIMER -->
+          <div class="timerBoxSection">
+            <h3>Study Timer</h3>
+
+            <div class="timerWrapper">
+              <div id="timer">00:00:00</div>
+            </div>
+
+            <button onclick="startStudy()">Start</button>
+            <button onclick="stopStudy()">Pause</button>
+            <button onclick="resetTimer()">Reset</button>
+          </div>
+
+          <!-- DND -->
+          <div class="timerBoxSection">
+            <h3>DND Mode 🔒</h3>
+
+            <select id="dndTime">
+              <option value="60">1 min</option>
+              <option value="600">10 min</option>
+              <option value="1800">30 min</option>
+              <option value="3600">1 hour</option>
+            </select>
+
+            <div class="timerWrapper">
+              <div id="dndTimer">00:00:00</div>
+            </div>
+
+            <button onclick="startDND()">Start DND</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- 🔥 RECOMMENDATION SECTION -->
+  <div class="card fullSection">
+
+    <h3>Smart Study Recommendation</h3>
+
+    <div class="recommendGrid">
+
+      <!-- SUBJECT -->
+      <select id="subjectSelect" onchange="loadTopics()">
+        <option value="">Select Subject</option>
+
+        <option value="mathematics">Mathematics</option>
+        <option value="science">Science</option>
+        <option value="programming">Programming</option>
+        <option value="commerce">Commerce</option>
+        <option value="humanities">Humanities</option>
+        <option value="languages">Languages</option>
+        <option value="exams">Competitive Exams</option>
+        <option value="skills">Skills</option>
+        <option value="technology">Technology</option>
+        <option value="design">Design</option>
+      </select>
+
+      <!-- TOPICS -->
+      <select id="topicSelect" onchange="fillTopicInput()">
+        <option value="">Select Topic</option>
+      </select>
+
+      <!-- INPUT -->
+      <input type="text" id="topicInput" placeholder="Or type your own topic" />
+
+      <!-- LEVEL -->
+      <select id="levelSelect">
+        <option value="">Select Level</option>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+        <option>Scholar</option>
+      </select>
+
+    </div>
+
+    <button class="recommendBtn" onclick="getRecommendations()">
+  Get Recommendation
+</button>
+
+    <div id="recommendResults"></div>
+
+  </div>
+
+</div>
+
+<!-- DND OVERLAY -->
+<div id="dndOverlay" style="display:none;">
+  <div class="dndContent">
+    <h2>🔒 Focus Mode Active</h2>
+    <p id="dndRemaining">00:00</p>
+    <p>Stay focused. No distractions allowed.</p>
+  </div>
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
