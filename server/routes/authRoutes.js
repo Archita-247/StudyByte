@@ -1,12 +1,9 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
+import { sendEmailOtp, verifyEmailOtp } from "../controllers/authController.js";
 
-const {
-  sendEmailOtp,
-  verifyEmailOtp
-} = require("../controllers/authController");
+const router = express.Router();
 
 router.post("/send-otp", sendEmailOtp);
 router.post("/verify-otp", verifyEmailOtp);
 
-module.exports = router;
+export default router;

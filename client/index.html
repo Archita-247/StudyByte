@@ -12,75 +12,108 @@
 <!-- HEADER -->
 <div class="appHeader">
 
-  <!-- LEFT: MODE -->
   <div class="headerLeft">
     <select id="modeSelect" onchange="changeMode()">
       <option value="system">System</option>
       <option value="light">Light Mode</option>
       <option value="dark">Dark Mode</option>
     </select>
+
+    <div id="menuBtn" class="menu-btn">☰</div>
   </div>
 
-  <!-- CENTER: LOGO -->
   <div class="headerCenter">
     <img src="../assets/logo.jpg" class="logo" />
     <h1>StudyByte</h1>
   </div>
 
-  <!-- RIGHT: CLOCK -->
   <div class="headerRight">
     <span id="clock"></span>
   </div>
 
 </div>
 
+<!-- LAYOUT -->
+<div id="appLayout">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar" class="sidebar">
+    <ul class="sidebar-menu">
+      <li onclick="openQuizModal()">AI Quiz</li>
+      <li onclick="openBrainstorm()">BrainStorm</li>
+      <li onclick="openAISummary()">AI Summary</li>
+      <li onclick="openSmartPlanner()">Smart Study Planner</li>
+      <li onclick="openIssueModal()">Report an Issue</li>
+    </ul>
+  </div>
+
+  <!-- MAIN -->
+  <div id="mainContent">
+
 <!-- AUTH -->
 <div id="authBox">
   <h2>Login / Signup</h2>
 
   <input type="text" id="phone" placeholder="+91XXXXXXXXXX" />
-
-  <div id="recaptcha-container" style="display:none;"></div>
+  <div id="recaptcha-container"></div>
 
   <button onclick="sendOTP()">Send OTP</button>
 
   <br><br>
 
-  <input type="text" id="otp" placeholder="Enter OTP" />
-  <button onclick="verifyOTP()">Verify OTP</button>
+  <div id="otpSection" style="display:none;">
+<div style="position: relative;">
+  <input 
+    type="password" 
+    id="otp" 
+    placeholder="Enter OTP" 
+    style="padding-right: 40px;"
+  />
+
+  <span 
+    id="toggleOtp" 
+    style="
+      position:absolute;
+      right:10px;
+      top:50%;
+      transform:translateY(-50%);
+      cursor:pointer;
+      font-size:16px;
+    "
+  >
+    👁
+  </span>
+</div>    <button onclick="verifyOTP()">Verify OTP</button>
+  </div>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" style="display:none;">
 
   <div class="mainLayout">
-<!-- PROFILE -->
-<div class="card headerCard">
-  <img id="profileImage" class="profileImg" src="" />
 
-  <h2 id="welcomeText">Welcome 👋</h2>
-  <p id="userInfo"></p>
+    <!-- PROFILE -->
+    <div class="card headerCard">
+      <img id="profileImage" class="profileImg" src="" />
+      <h2 id="welcomeText">Welcome 👋</h2>
+      <p id="userInfo"></p>
 
-  <button onclick="toggleProfileEdit()">Edit Profile</button>
+      <button onclick="toggleProfileEdit()">Edit Profile</button>
 
-  <!-- EDIT BOX -->
-  <div id="profileEditBox" style="display:none;">
-    <input type="text" id="nameInput" placeholder="Enter your name" />
+      <div id="profileEditBox" style="display:none;">
+        <input type="text" id="nameInput" placeholder="Enter your name" />
+        <input type="file" id="photoInput" accept="image/*" />
 
-    <input type="file" id="photoInput" accept="image/*" />
+        <img id="previewImage" style="width:70px; border-radius:50%; display:none; margin-top:10px;" />
 
-    <!-- PREVIEW -->
-    <img id="previewImage"
-         style="width:70px; border-radius:50%; display:none; margin-top:10px;" />
+        <button onclick="saveProfile()">Save</button>
+        <button onclick="toggleProfileEdit()">Cancel</button>
+      </div>
 
-    <button onclick="saveProfile()">Save</button>
-    <button onclick="toggleProfileEdit()">Cancel</button>
-  </div>
+      <button onclick="logout()" style="margin-top:15px;">Logout</button>
+    </div>
 
-  <button onclick="logout()" style="margin-top:15px;">Logout</button>
-</div>
-
-    <!-- RIGHT SECTION -->
+    <!-- RIGHT -->
     <div class="rightSection">
 
       <!-- STATS -->
@@ -110,14 +143,12 @@
 
       </div>
 
-      <!-- TIMER + DND -->
+      <!-- TIMER -->
       <div class="card">
         <div class="timerGrid">
 
-          <!-- TIMER -->
           <div class="timerBoxSection">
             <h3>Study Timer</h3>
-
             <div class="timerWrapper">
               <div id="timer">00:00:00</div>
             </div>
@@ -127,7 +158,6 @@
             <button onclick="resetTimer()">Reset</button>
           </div>
 
-          <!-- DND -->
           <div class="timerBoxSection">
             <h3>DND Mode 🔒</h3>
 
@@ -149,62 +179,150 @@
       </div>
 
     </div>
-
   </div>
 
-  <!-- 🔥 RECOMMENDATION SECTION -->
+  <!-- RECOMMENDATION -->
   <div class="card fullSection">
-
     <h3>Smart Study Recommendation</h3>
 
     <div class="recommendGrid">
-
-      <!-- SUBJECT -->
       <select id="subjectSelect" onchange="loadTopics()">
         <option value="">Select Subject</option>
-
         <option value="mathematics">Mathematics</option>
         <option value="science">Science</option>
+        <option value="physics">Physics</option>
+        <option value="chemistry">Chemistry</option>
+        <option value="biology">Biology</option>
         <option value="programming">Programming</option>
+        <option value="computer_science">Computer Science</option>
         <option value="commerce">Commerce</option>
         <option value="humanities">Humanities</option>
         <option value="languages">Languages</option>
         <option value="exams">Competitive Exams</option>
-        <option value="skills">Skills</option>
+        <option value="skills">Study Skills</option>
         <option value="technology">Technology</option>
         <option value="design">Design</option>
+        <option value="arts">Arts</option>
+        <option value="health">Health</option>
+        <option value="general_knowledge">General Knowledge</option>
       </select>
 
-      <!-- TOPICS -->
       <select id="topicSelect" onchange="fillTopicInput()">
         <option value="">Select Topic</option>
       </select>
 
-      <!-- INPUT -->
-      <input type="text" id="topicInput" placeholder="Or type your own topic" />
+      <input type="text" id="topicInput" placeholder="Or type topic" />
 
-      <!-- LEVEL -->
       <select id="levelSelect">
         <option value="">Select Level</option>
         <option>Beginner</option>
         <option>Intermediate</option>
-        <option>Advanced</option>
-        <option>Scholar</option>
+        <option>Hard</option>
       </select>
-
     </div>
 
     <button class="recommendBtn" onclick="getRecommendations()">
-  Get Recommendation
-</button>
+      Get Recommendation
+    </button>
 
     <div id="recommendResults"></div>
+  </div>
 
+  <!-- SMART STUDY PLANNER -->
+  <div id="smartPlannerSection" class="card fullSection plannerSection">
+    <div class="plannerHeader">
+      <div>
+        <span>AI schedule builder</span>
+        <h3>Smart Study Planner</h3>
+      </div>
+      <button class="smallBtn" onclick="clearSmartPlanner()">Clear Plan</button>
+    </div>
+
+    <div class="plannerGrid">
+      <select id="plannerPreparingFor">
+        <option value="">Preparing for</option>
+        <option>School Exam</option>
+        <option>Board Exam</option>
+        <option>Competitive Exam</option>
+        <option>College Semester</option>
+        <option>Skill Building</option>
+        <option>Interview</option>
+        <option>Personal Learning</option>
+      </select>
+
+      <select id="plannerSubject" onchange="loadPlannerTopics()">
+        <option value="">Select Subject</option>
+        <option value="mathematics">Mathematics</option>
+        <option value="science">Science</option>
+        <option value="physics">Physics</option>
+        <option value="chemistry">Chemistry</option>
+        <option value="biology">Biology</option>
+        <option value="programming">Programming</option>
+        <option value="computer_science">Computer Science</option>
+        <option value="commerce">Commerce</option>
+        <option value="humanities">Humanities</option>
+        <option value="languages">Languages</option>
+        <option value="exams">Competitive Exams</option>
+        <option value="skills">Study Skills</option>
+        <option value="technology">Technology</option>
+        <option value="design">Design</option>
+        <option value="arts">Arts</option>
+        <option value="health">Health</option>
+        <option value="general_knowledge">General Knowledge</option>
+      </select>
+
+      <select id="plannerTopic" onchange="fillPlannerTopicInput()">
+        <option value="">Select Topic</option>
+      </select>
+
+      <input type="text" id="plannerCustomTopic" placeholder="Or type custom topic" />
+
+      <select id="plannerLevel">
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+      </select>
+
+      <select id="plannerDuration">
+        <option value="3">3 days</option>
+        <option value="7" selected>1 week</option>
+        <option value="14">2 weeks</option>
+        <option value="30">1 month</option>
+        <option value="60">2 months</option>
+        <option value="90">3 months</option>
+      </select>
+
+      <select id="plannerDailyTime">
+        <option value="30">30 minutes daily</option>
+        <option value="60">1 hour daily</option>
+        <option value="90">1.5 hours daily</option>
+        <option value="120" selected>2 hours daily</option>
+        <option value="180">3 hours daily</option>
+        <option value="240">4 hours daily</option>
+        <option value="360">6 hours daily</option>
+      </select>
+      <input type="text" id="plannerTarget" placeholder="Target, e.g. 85%, finish 5 chapters" />
+
+      <select id="plannerFocus">
+        <option value="balanced">Balanced</option>
+        <option value="revision">Revision heavy</option>
+        <option value="practice">Practice heavy</option>
+        <option value="exam">Exam sprint</option>
+      </select>
+    </div>
+
+    <button class="recommendBtn" onclick="generateSmartPlanner()">Generate Schedule</button>
+
+    <div id="plannerProgress"></div>
+    <div id="plannerResults"></div>
   </div>
 
 </div>
 
-<!-- DND OVERLAY -->
+  </div>
+</div>
+
+<!-- DND -->
 <div id="dndOverlay" style="display:none;">
   <div class="dndContent">
     <h2>🔒 Focus Mode Active</h2>
@@ -212,6 +330,132 @@
     <p>Stay focused. No distractions allowed.</p>
   </div>
 </div>
+
+<!-- ISSUE MODAL -->
+<div id="issueModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center;">
+  <div style="
+  background:#1e222b;
+  padding:30px;
+  border-radius:16px;
+  width:90%;
+  max-width:420px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  text-align:center;
+">
+    <h3>Report an Issue</h3>
+
+    <textarea id="issueText" placeholder="Describe your issue..." style="width:100%; height:120px; margin-top:10px; padding:10px; border-radius:8px; border:none; background:#2a2f3a; color:white;"></textarea>
+
+    <button onclick="submitIssue()">Submit</button>
+    <button onclick="closeIssueModal()" style="background:#444; margin-top:10px;">Cancel</button>
+  </div>
+</div>
+
+<!-- QUIZ MODAL -->
+<div id="quizModal" class="quiz-modal" style="display:none;">
+  <h2>🧠 AI Quiz</h2>
+
+  <div style="max-width:500px; margin:auto;">
+<select id="quizSubject">
+  <option value="">Select Subject</option>
+  <option value="mathematics">Mathematics</option>
+  <option value="science">Science</option>
+  <option value="physics">Physics</option>
+  <option value="chemistry">Chemistry</option>
+  <option value="biology">Biology</option>
+  <option value="programming">Programming</option>
+  <option value="history">History</option>
+  <option value="english">English</option>
+  <option value="general knowledge">General Knowledge</option>
+  <option value="aptitude">Aptitude</option>
+  <option value="other">Other</option>
+</select>
+
+<input type="text" id="quizTopic" placeholder="Enter topic (optional)" />    <select id="quizLevel">
+      <option>Beginner</option>
+      <option>Intermediate</option>
+      <option>Advanced</option>
+    </select>
+    <select id="quizCount">
+  <option value="5">5 Questions</option>
+  <option value="10">10 Questions</option>
+  <option value="15">15 Questions</option>
+</select>
+
+<select id="quizQuestionType">
+  <option value="mcq">MCQ</option>
+  <option value="true_false">True/False</option>
+  <option value="fill_blank">Fill in the Blanks</option>
+  <option value="match">Match the Following</option>
+  <option value="mixed">Mixed</option>
+</select>
+
+<input id="quizSourceLink" type="text" placeholder="Paste YouTube link..." />
+<input id="quizFileInput" type="file" accept=".txt,.pdf,.docx,image/*" />
+<div id="quizPasteZone" class="quiz-paste-zone" tabindex="0">
+  Paste an image here
+  <span id="quizPasteStatus">No pasted image</span>
+</div>
+
+    <button onclick="startQuiz()">Start Quiz</button>
+    <button onclick="viewSavedQuizzes()" style="background:#444;">Saved Quizzes</button>
+    <button onclick="closeQuizModal()" style="background:#444; position:fixed; top:10px; left:10px; width:48px; min-width:0; padding:6px 0; margin:0; font-size:12px; z-index:10000;">Close</button>
+  </div>
+
+  <div id="quizArea"></div>
+</div>
+
+<!-- 🧠 BRAINSTORM -->
+<div id="brainstormSection" style="
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#0f1117;
+  z-index:9999;
+  overflow:auto;
+  padding:20px;
+">
+  <h2>🧠 Brainstorm</h2>
+
+  <!-- ⚠️ EMPTY (JS WILL CONTROL THIS) -->
+  <div id="gameArea" style="margin-top:30px;"></div>
+
+  <button onclick="closeBrainstorm()" style="background:#444; position:fixed; top:0px; left:10px; width:44px; min-width:0; padding:4px 0; margin:0; font-size:10px; z-index:10000;">
+    Close
+  </button>
+</div>
+<!-- 🤖 AI SUMMARY -->
+<div id="aiSummarySection" style="
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#0f1117;
+  z-index:9999;
+  overflow:auto;
+  padding:20px;
+">
+  <h2>🤖 AI Summary</h2>
+<input type="file" id="fileInput" accept=".txt,.pdf,.docx,image/*" />
+
+<input type="text" id="youtubeInput" placeholder="Paste YouTube link..." />
+  <textarea id="summaryInput" placeholder="Paste your notes or text here..."></textarea>
+
+  <div class="summary-actions">
+    <button id="generateSummaryBtn" onclick="generateSummary()">Generate Summary</button>
+    <button onclick="closeAISummary()" style="background:#444;">Close</button>
+  </div>
+
+  <div id="summaryOutput"></div>
+</div>
+
 
 <script type="module" src="script.js"></script>
 
