@@ -1287,7 +1287,7 @@ window.generateSummary = async () => {
       formData.append("text", text);
     }
 
-    const res = await fetch("http://localhost:5000/api/summary", {
+    const res = await fetch("https://studybyte-ssuq.onrender.com/api/summary", {
       method: "POST",
       body: formData
     });
@@ -1356,7 +1356,7 @@ window.generateSummary = async () => {
       formData.append("text", text);
     }
 
-    const res = await fetch("http://localhost:5000/api/summary", {
+    const res = await fetch("https://studybyte-ssuq.onrender.com/api/summary", {
       method: "POST",
       body: formData
     });
@@ -1593,7 +1593,7 @@ window.generateSummary = async () => {
       formData.append("text", text);
     }
 
-    const res = await fetch("http://localhost:5000/api/summary", {
+    const res = await fetch("https://studybyte-ssuq.onrender.com/api/summary", {
       method: "POST",
       body: formData
     });
@@ -2819,7 +2819,7 @@ const level = selectedLevel || quizLevel;
   quizArea.innerHTML = `<p>⏳ Generating quiz...</p>`;
 
   try {
-    const res = await fetch("http://localhost:5000/api/quiz", {
+    const res = await fetch("https://studybyte-ssuq.onrender.com/api/quiz", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -3568,7 +3568,7 @@ window.startQuiz = async () => {
     if (youtube) formData.append("youtube", youtube);
     if (file) formData.append("file", file);
 
-    const res = await fetch("http://localhost:5000/api/quiz", {
+    const res = await fetch("https://studybyte-ssuq.onrender.com/api/quiz", {
       method: "POST",
       body: formData
     });
